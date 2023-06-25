@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/todo_app  # Replace 'mydatabase' with your database name
+    username: root                      # Replace 'your-username' with your MySQL username
+    password: $hyam@123                      # Replace 'your-password' with your MySQL password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update  # Set to 'update' to allow Hibernate to update the database schema
+
+server:
+  port: 8080  # Set the desired port number
+
