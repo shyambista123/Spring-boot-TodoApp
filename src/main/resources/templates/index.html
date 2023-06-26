@@ -15,11 +15,13 @@
 
     <ul class="container" style="list-style: none;">
         <li th:each="todo : ${todos}">
-            <h3 th:text="${todo.title}"></h3>
-            <p th:text="${todo.description}"></p>
-            <!--            <small th:text="${todo.date}"></small>-->
-            <a th:href="@{/edit/{id}(id=${todo.id})}">Edit</a>
-            <a th:href="@{/delete/{id}(id=${todo.id})}">Delete</a>
+            <h3 class="p-0 mt-1 " th:text="${todo.title}"></h3>
+            <p class="p-0 m-0" th:text="${todo.description}"></p>
+            <p class="m-0 p-0 text-success fs-2 text-decoration-underline" th:text="${#dates.format(todo.date, 'yyyy-MM-dd')}"></p>
+            <p class="m-0 p-0">Completed: <span th:text="${todo.completed} ? 'Yes' : 'No'"></span></p>
+            <a class="m-0 p-0" th:href="@{/toggle-completion/{id}(id=${todo.id})}" th:text="${todo.completed} ? 'mark as Incomplete' : 'mark as Complete'"></a>
+            <a class="m-0 p-0" th:href="@{/edit/{id}(id=${todo.id})}">Edit</a>
+            <a class="m-0 p-0" th:href="@{/delete/{id}(id=${todo.id})}">Delete</a>
         </li>
         <a th:href="@{/add}" class="btn btn-primary mt-3" type="submit">Add</a><br>
         <a class="btn btn-danger m-3 disabled" th:if="${not #lists.isEmpty(todos)}" th:href="@{/delete-all/}">Delete All</a>

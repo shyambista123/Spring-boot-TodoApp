@@ -2,13 +2,14 @@ package com.shyam.todo.service.todo;
 
 import com.shyam.todo.model.Todo;
 import com.shyam.todo.repo.TodoRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TodoServiceImpl implements TodoService{
-
+    @Autowired
     private TodoRepo todoRepo;
 
     @Override

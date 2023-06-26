@@ -1,7 +1,6 @@
 package com.shyam.todo.controller;
 
 import com.shyam.todo.model.Todo;
-import com.shyam.todo.repo.TodoRepo;
 import com.shyam.todo.service.todo.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Date;
 
 @Controller
 public class TodoController {
@@ -31,6 +32,9 @@ public class TodoController {
     public String add(@ModelAttribute Todo todo) {
         if (todo.getTitle() != null && !todo.getTitle().isEmpty() &&
                 todo.getDescription() != null && !todo.getDescription().isEmpty()) {
+            Date currentDate = new Date();
+            todo.setDate(currentDate);
+            todo.setCompleted(false);
             todoService.save(todo);
         }
         return "redirect:/";
@@ -63,4 +67,16 @@ public class TodoController {
         }
         return "redirect:/";
     }
+    @GetMapping("/toggle-completion/{id}")
+    public String toggleCompletionStatus(@PathVariable("id") Long id) {
+        Todo todo = todoService.findById(id).orElse(null);
+        if (todo != null) {
+            boolean completed = todo.isCompleted();
+            todo.setCompleted(!completed);
+            todoService.save(todo);
+        }
+        return "redirect:/";
+    }
+
+
 }
